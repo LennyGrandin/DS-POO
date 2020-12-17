@@ -47,6 +47,4 @@ public class Webhook
 	{
 		this.url = url;
 	}
-	
-	
 }

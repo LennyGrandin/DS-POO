@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ServeurDiscussion
 {
 	private Map<Role, List<Utilisateur>> mapping_role_utilisateurs;
@@ -58,7 +59,7 @@ public class ServeurDiscussion
 		this.canaux = new ArrayList<Canal>();
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws ActionNonAutoriseeException
 	{
 		ServeurDiscussion s = new ServeurDiscussion();
 		
@@ -73,6 +74,27 @@ public class ServeurDiscussion
 		s.getCanaux().add(c2);
 		
 		System.out.println("s.getCanaux() = " + s.getCanaux());
-		System.out.println("Bonne fin d'année !!!");
+		
+        Message m = new Message();
+        m.setDestinataire(c1);
+        m.setTexte("Bonne fêtes fin d'année à vous aussi !!");
+        Message m2 = new Message();
+        m2.setDestinataire(c1);
+        m2.setTexte("Jingle bells, jingle bells, jingle all the way!");
+        
+        
+        Utilisateur utilisateur = new Utilisateur();
+        Role r = new Role("Membre");
+        c1.getMapping_role_utilisateurs().put(r, Arrays.asList(utilisateur));
+        c1.getMapping_role_habilitations().put(r, Arrays.asList(Habilitation.ECRITURE));
+
+        c1.ecrireMessage(utilisateur, m);
+        c1.ecrireMessage(utilisateur, m2);
+
+        List<Message> historiques = c1.getHistoriques();
+        for (Message message : historiques)
+        {
+        	System.out.println("[Message] " + message.getTexte());
+        }
 	}
 }
