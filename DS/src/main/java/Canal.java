@@ -80,6 +80,29 @@ public class Canal implements Comparable<Canal>, Destinataire
 		this.webhooks = new ArrayList<Webhook>();
 	}
 	
+	private boolean aRoleAvecHabilitationEcriture(List<Role> rolesUtilisateur)
+	{
+		boolean hasWriteHabilitation = false;
+		
+		// On cherche si on trouve une habilitation ECRITURE ou plus parmi les rôles.
+		for (Role r : rolesUtilisateur)
+		{	
+			if (mapping_role_habilitations.containsKey(r))
+			{
+				for (Habilitation h : mapping_role_habilitations.get(r))
+				{
+					if (h.compareTo(Habilitation.ECRITURE) >= 0)
+					{
+						hasWriteHabilitation = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		return hasWriteHabilitation;
+	}
+	
 	public void ecrireMessage(Utilisateur u, Message m) throws ActionNonAutoriseeException
 	{
 		ArrayList<Role> rolesUtilisateur = new ArrayList<Role>();
@@ -93,29 +116,7 @@ public class Canal implements Comparable<Canal>, Destinataire
 			}
 	    }
 		
-		boolean hasWriteHabilitation = false;
-		
-		// On cherche si on trouve une habilitation ECRITURE ou plus parmi les rôles.
-		for (Role r : rolesUtilisateur)
-		{
-			System.out.println("Pour le role : " + r.getNomRole());
-			System.out.println(mapping_role_habilitations.get(r));
-			
-			if (mapping_role_habilitations.containsKey(r))
-			{
-				for (Habilitation h : mapping_role_habilitations.get(r))
-				{
-					System.out.println("Habilitation : " + h.getValue());
-					if (h.compareTo(Habilitation.ECRITURE) >= 0)
-					{
-						hasWriteHabilitation = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		if (hasWriteHabilitation) // Si l'utilisateur a le droit d'écrire, alors on envoie.
+		if (aRoleAvecHabilitationEcriture(rolesUtilisateur)) // Si l'utilisateur a le droit d'écrire, alors on envoie.
 		{
 			historiques.add(m);
 		}
