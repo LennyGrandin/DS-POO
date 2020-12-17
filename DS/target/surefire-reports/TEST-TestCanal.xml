@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="TestEcrireMessage" time="0.006" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="TestCanal" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.9+11-post-Debian-1"/>
@@ -58,6 +58,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="TestEcrireMessage" name="ecrireMessageKO" time="0.005"/>
-  <testcase classname="TestEcrireMessage" name="ecrireMessageOK" time="0.001"/>
+  <testcase classname="TestCanal" name="compareToEntreCanaux" time="0"/>
 </testsuite>

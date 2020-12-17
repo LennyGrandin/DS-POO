@@ -5,7 +5,7 @@ public class Webhook
 	private String description;
 	private String nomApplicationAppelante;
 	private WebhookAction action;
-	
+	private String url; // N'apparaît pas dans le diagramme, mais est mentionné dans le sujet.
 	
 	public String getNom()
 	{
@@ -38,6 +38,14 @@ public class Webhook
 	public void setAction(WebhookAction action)
 	{
 		this.action = action;
+	}
+	public String getUrl()
+	{
+		return url;
+	}
+	public void setUrl(String url)
+	{
+		this.url = url;
 	}
 	
 	
